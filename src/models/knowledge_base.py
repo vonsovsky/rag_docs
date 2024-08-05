@@ -8,21 +8,13 @@ from langchain.vectorstores import Chroma
 
 logger = Logger()
 
-SOURCE_FOLDER = "../data"
-
 
 class KnowledgeBase:
 
     CHUNK_SIZE = 500
     CHUNK_OVERLAP = 50
-    CHROMA_DB_DIRECTORY = 'db'
-    CHROMA_SETTINGS = Settings(
-        chroma_db_impl='duckdb+parquet',
-        persist_directory=CHROMA_DB_DIRECTORY,
-        anonymized_telemetry=False
-    )
 
-    def __init__(self, source_folder_path: str = SOURCE_FOLDER) -> None:
+    def __init__(self, source_folder_path: str) -> None:
         self.docs = None
         self.load(source_folder_path=source_folder_path)
         self.vectorstore = self.docs_to_embeddings(
